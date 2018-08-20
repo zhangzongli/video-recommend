@@ -1,0 +1,2 @@
+apply plugin: 'idea' // 生成Intellij idea使用的文件
+

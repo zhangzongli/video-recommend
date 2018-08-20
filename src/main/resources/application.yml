@@ -1,0 +1,75 @@
+---
+spring:
+  profiles:
+    active: prod # 切换不同环境的配置信息
+  output:
+    ansi:
+      enabled: always # 多彩输出日志(假如编辑器支持)
+  jackson:
+    time-zone: 'Asia/Shanghai'
+  http:
+    multipart:
+      max-file-size: 500KB
+  debug: true
+  cors: # 跨域
+    enabled: true
+    paths:
+    - /api/**
+    exposed-headers:
+    - x-auth-token
+    allowed-origins:
+    - '*'
+    allowed-methods:
+    - '*'
+
+---
+
+spring:
+  profiles: prod
+  datasource:
+    filters: stat
+    maxActive: 6
+    initialSize: 1
+    maxWait: 60000
+    maxIdle: 6
+    minIdle: 6
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: true
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://wx.zhublin.top:3306/video-recommend?useSSL=false
+    username: root
+    password: zzl161003100
+
+  #  jpa:
+  #    properties:
+  #      hibernate:
+  #        hbm2ddl:
+  #          auto: update
+  #        dialect: org.hibernate.dialect.MySQL5Dialect
+  thymeleaf: # thymeleaf模版配置
+    mode: HTML5
+    cache: false
+    encoding: UTF-8
+    content-type: text/html
+  mvc:
+    view:
+      prefix: classpath:/templates/
+      suffix: .html
+    date-format: yyyy-MM-dd HH:mm:ss
+#    static-path-pattern: /static/**
+
+logging:
+  level:
+    org.hibernate.tool.hbm2ddl: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type: TRACE
+
+server:
+  port: 8080
