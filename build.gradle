@@ -62,10 +62,16 @@ dependencies {
     //lombok log直接输出
     compile 'org.projectlombok:lombok:1.16.18'
 
-    //netty
-    compile group: 'io.netty', name: 'netty-all', version: '4.1.28.Final'
+    //mahout
+    compile group: 'org.apache.mahout', name: 'mahout-math', version: '0.13.0'
 
     //fastJson
     compile group: 'com.alibaba', name: 'fastjson', version: '1.2.49'
+
+    //jri
+//    compile group: 'org.nuiton.thirdparty', name: 'JRI', version: '0.9-6'
+//    compile group: 'jriengine', name: 'jriengine', version: '0.8.4'
+    compile group: 'org.rosuda.REngine', name: 'REngine', version: '2.1.0'
+    compile group: 'org.rosuda.REngine', name: 'Rserve', version: '1.8.1'
 }
 
