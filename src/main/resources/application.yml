@@ -68,3 +68,11 @@ server:
   port: 8080
   session:
     timeout: 1800
+R:
+  port: 6311
+  path:
+    user: ~/Downloads/R/userCF.R
+    item: ~/Downloads/R/itemCF.R
+  neighbor_num: 2
+  recommender_num: 5
+

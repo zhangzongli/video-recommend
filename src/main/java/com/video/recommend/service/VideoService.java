@@ -3,6 +3,7 @@ package com.video.recommend.service;
 import com.video.recommend.model.IndexReturn;
 import org.rosuda.REngine.Rserve.RConnection;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,21 @@ import java.util.Map;
  */
 @Service
 public class VideoService {
+
+    @Value("${R.port}")
+    private int port;
+
+    @Value("${R.path.user}")
+    private String userPath;
+
+    @Value("${R.path.item}")
+    private String itemPath;
+
+    @Value("${R.neighbor_num}")
+    private String neighborNum;
+
+    @Value("${R.recommender_num}")
+    private String recommenderNum;
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -96,18 +112,18 @@ public class VideoService {
         }
         RConnection rConnection = null;
         try {
-            rConnection = new RConnection("localhost", 6311);
+            rConnection = new RConnection("localhost", port);
 
-            rConnection.eval("source('~/Downloads/R/userCF.R')");
+            rConnection.eval("source('"+userPath+"')");
 
             rConnection.assign("uid",uidArr);
             rConnection.assign("iid",itemArr);
             rConnection.assign("pref",prefArr);
             rConnection.eval("data <- data.frame(uid, iid, pref)");
             // 设置最大近邻数
-            rConnection.eval("NeighborHodd_num <- 2");
+            rConnection.eval("NeighborHodd_num <- " + neighborNum);
             // 保留最多个数推荐结果
-            rConnection.eval("Recommender_num <- 5");
+            rConnection.eval("Recommender_num <- " + recommenderNum);
             rConnection.eval("M <- FileDataModel(data)");
             rConnection.eval("S <- EuclideanDistanceSimilarit( M )");
             rConnection.eval("N <- NearestNUserNeighborhood( S, NeighborHodd_num )");
@@ -143,16 +159,16 @@ public class VideoService {
         try {
             rConnection = new RConnection("localhost", 6311);
 
-            rConnection.eval("source('~/Downloads/R/itemCF.R')");
+            rConnection.eval("source('"+itemPath+"')");
 
             rConnection.assign("uid",uidArr);
             rConnection.assign("iid",itemArr);
             rConnection.assign("pref",prefArr);
             rConnection.eval("data <- data.frame(uid, iid, pref)");
             // 设置最大近邻数
-            rConnection.eval("NeighborHodd_num <- 2");
+            rConnection.eval("NeighborHodd_num <- " + neighborNum);
             // 保留最多个数推荐结果
-            rConnection.eval("Recommender_num <- 5");
+            rConnection.eval("Recommender_num <- " + recommenderNum);
             rConnection.eval("M <- FileDataModel(data)");
             rConnection.eval("S <- EuclideanDistanceSimilarit( M )");
             rConnection.eval("N <- NearestNUserNeighborhood( S, NeighborHodd_num )");
