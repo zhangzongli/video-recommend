@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="author" content="order by dede58.com/"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link href="../css/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/common.css" rel="stylesheet" type="text/css"/>
+    <script src="../js/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="../js/jquery.SuperSlide.2.1.1.js" type="text/javascript"></script>
+    <script src="../js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../js/common.js" type="text/javascript"></script>
+    <script src="../js/list_page.js" type="text/javascript"></script>
+    <title>列表页</title>
+</head>
+
+<body class="background_color ">
+<div id="header_top">
+    <div class="page_header">
+        <div class="header_style">
+            <div class="clearfix">
+                <div class="search_style">
+                    <input name="" type="text" class="search"/>
+                    <button name="" type="button" class="button_submit" onclick="search()"><i
+                            class="icon_search"></i>搜索
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!---->
+<div class="page_style">
+
+    <!--筛选-->
+    <div class="filter_style">
+        <div class="selectNumberScreen">
+            <div id="selectList" class="screenBox screenBackground">
+                <dl class="listIndex" attr="terminal_brand_s" id="module">
+                    <dt class="l_f">分类：</dt>
+                    <dd><a href="javascript:void(0)" onclick="filterClick(this)" value="all" attrval="全部" class="selected" >全部</a>
+                        <a href="javascript:void(0)" onclick="filterClick(this)" value="1" attrval="电影">电影</a>
+                        <a href="javascript:void(0)" onclick="filterClick(this)" value="2" attrval="电视剧">电视剧</a>
+                        <a href="javascript:void(0)" onclick="filterClick(this)" value="3" attrval="动漫">动漫</a>
+                        <a href="javascript:void(0)" onclick="filterClick(this)" value="4" attrval="综艺">综艺</a>
+                    </dd>
+                </dl>
+                <dl class="listIndex" attr="terminal_os_s" id="area">
+                    <dt class="l_f">国家/地区：</dt>
+                    <dd>
+                        <a href="javascript:void(0)" onclick="filterClick(this)" value="all" attrval="全部" class="selected">全部</a>
+                        <a href="javascript:void(0)" onclick="filterClick(this)" value="1" attrval="中国">中国</a>
+                        <a href="javascript:void(0)" onclick="filterClick(this)" value="3" attrval="美国">美国</a>
+                        <a href="javascript:void(0)" onclick="filterClick(this)" value="4" attrval="日本">日本</a>
+                        <a href="javascript:void(0)" onclick="filterClick(this)" value="2" attrval="韩国">韩国</a>
+                    </dd>
+                </dl>
+                <dl class="listIndex" attr="terminal_os_s" id="type">
+                    <dt class="l_f">类别：</dt>
+                    <dd>
+                        <a href="javascript:void(0)" onclick="filterClick(this)" value="all" attrval="全部" class="selected">全部</a>
+                        <a href="javascript:void(0)" onclick="filterClick(this)" value="1" attrval="喜剧">喜剧</a>
+                        <a href="javascript:void(0)" onclick="filterClick(this)" value="2" attrval="科幻">科幻</a>
+                        <a href="javascript:void(0)" onclick="filterClick(this)" value="3" attrval="恐怖">恐怖</a>
+                    </dd>
+                </dl>
+                <dl class="listIndex" attr="terminal_os_s" id="time">
+                    <dt class="l_f">时间：</dt>
+                    <dd>
+                        <a href="javascript:void(0)" onclick="filterClick(this)" value="all" attrval="全部" class="selected">全部</a>
+                        <a href="javascript:void(0)" onclick="filterClick(this)" value="2018" attrval="2018">2018</a>
+                        <a href="javascript:void(0)" onclick="filterClick(this)" value="2017" attrval="2017">2017</a>
+                        <a href="javascript:void(0)" onclick="filterClick(this)" value="2016" attrval="2016">2016</a>
+                        <a href="javascript:void(0)" onclick="filterClick(this)" value="2015" attrval="2015">2015</a>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <!--列表展示-->
+    <div class="movielist" id="movie_list">
+        <ul class="video_list list_v_content">
+            <li class="first_content bg">
+                <a href="#" class="pic" target="_blank">
+                    <img src="http://g1.ykimg.com/051600005B63F00DADA7B25D1E03EA85" width="100%"/>
+                    <span class="first_bg"><i class="icon_bf"></i></span>
+                </a>
+                <div class="tc">
+                    <p class="tit">
+                        <a target="_blank" href="#">机甲核心</a></p>
+                    <p class="des">帅哥卧底抢夺关键能源</p>
+                </div>
+            </li>
+            <li class="first_content bg">
+                <a href="#" class="pic" target="_blank">
+                    <img src="http://g1.ykimg.com/051600005B63F00DADA7B25D1E03EA85" width="100%"/>
+                    <span class="first_bg"><i class="icon_bf"></i></span>
+                </a>
+                <div class="tc">
+                    <p class="tit">
+                        <a target="_blank" href="#">机甲核心</a></p>
+                    <p class="des">帅哥卧底抢夺关键能源</p>
+                </div>
+            </li>
+            <li class="first_content bg">
+                <a href="#" class="pic" target="_blank">
+                    <img src="http://g1.ykimg.com/051600005B63F00DADA7B25D1E03EA85" width="100%"/>
+                    <span class="first_bg"><i class="icon_bf"></i></span>
+                </a>
+                <div class="tc">
+                    <p class="tit">
+                        <a target="_blank" href="#">机甲核心</a></p>
+                    <p class="des">帅哥卧底抢夺关键能源</p>
+                </div>
+            </li>
+            <li class="first_content bg">
+                <a href="#" class="pic" target="_blank">
+                    <img src="http://g1.ykimg.com/051600005B63F00DADA7B25D1E03EA85" width="100%"/>
+                    <span class="first_bg"><i class="icon_bf"></i></span>
+                </a>
+                <div class="tc">
+                    <p class="tit">
+                        <a target="_blank" href="#">机甲核心</a></p>
+                    <p class="des">帅哥卧底抢夺关键能源</p>
+                </div>
+            </li>
+            <li class="first_content bg">
+                <a href="#" class="pic" target="_blank">
+                    <img src="http://g1.ykimg.com/051600005B63F00DADA7B25D1E03EA85" width="100%"/>
+                    <span class="first_bg"><i class="icon_bf"></i></span>
+                </a>
+                <div class="tc">
+                    <p class="tit">
+                        <a target="_blank" href="#">机甲核心</a></p>
+                    <p class="des">帅哥卧底抢夺关键能源</p>
+                </div>
+            </li>
+            <li class="first_content bg">
+                <a href="#" class="pic" target="_blank">
+                    <img src="http://g1.ykimg.com/051600005B63F00DADA7B25D1E03EA85" width="100%"/>
+                    <span class="first_bg"><i class="icon_bf"></i></span>
+                </a>
+                <div class="tc">
+                    <p class="tit">
+                        <a target="_blank" href="#">机甲核心</a></p>
+                    <p class="des">帅哥卧底抢夺关键能源</p>
+                </div>
+            </li>
+            <li class="first_content bg">
+                <a href="#" class="pic" target="_blank">
+                    <img src="http://g1.ykimg.com/051600005B63F00DADA7B25D1E03EA85" width="100%"/>
+                    <span class="first_bg"><i class="icon_bf"></i></span>
+                </a>
+                <div class="tc">
+                    <p class="tit">
+                        <a target="_blank" href="#">机甲核心</a></p>
+                    <p class="des">帅哥卧底抢夺关键能源</p>
+                </div>
+            </li>
+            <li class="first_content bg">
+                <a href="#" class="pic" target="_blank">
+                    <img src="http://g1.ykimg.com/051600005B63F00DADA7B25D1E03EA85" width="100%"/>
+                    <span class="first_bg"><i class="icon_bf"></i></span>
+                </a>
+                <div class="tc">
+                    <p class="tit">
+                        <a target="_blank" href="#">机甲核心</a></p>
+                    <p class="des">帅哥卧底抢夺关键能源</p>
+                </div>
+            </li>
+            <li class="first_content bg">
+                <a href="#" class="pic" target="_blank">
+                    <img src="http://g1.ykimg.com/051600005B63F00DADA7B25D1E03EA85" width="100%"/>
+                    <span class="first_bg"><i class="icon_bf"></i></span>
+                </a>
+                <div class="tc">
+                    <p class="tit">
+                        <a target="_blank" href="#">机甲核心</a></p>
+                    <p class="des">帅哥卧底抢夺关键能源</p>
+                </div>
+            </li>
+            <li class="first_content bg">
+                <a href="#" class="pic" target="_blank">
+                    <img src="http://g1.ykimg.com/051600005B63F00DADA7B25D1E03EA85" width="100%"/>
+                    <span class="first_bg"><i class="icon_bf"></i></span>
+                </a>
+                <div class="tc">
+                    <p class="tit">
+                        <a target="_blank" href="#">机甲核心</a></p>
+                    <p class="des">帅哥卧底抢夺关键能源</p>
+                </div>
+            </li>
+            <li class="first_content bg">
+                <a href="#" class="pic" target="_blank">
+                    <img src="http://g1.ykimg.com/051600005B63F00DADA7B25D1E03EA85" width="100%"/>
+                    <span class="first_bg"><i class="icon_bf"></i></span>
+                </a>
+                <div class="tc">
+                    <p class="tit">
+                        <a target="_blank" href="#">机甲核心</a></p>
+                    <p class="des">帅哥卧底抢夺关键能源</p>
+                </div>
+            </li>
+            <li class="first_content bg">
+                <a href="#" class="pic" target="_blank">
+                    <img src="http://g1.ykimg.com/051600005B63F00DADA7B25D1E03EA85" width="100%"/>
+                    <span class="first_bg"><i class="icon_bf"></i></span>
+                </a>
+                <div class="tc">
+                    <p class="tit">
+                        <a target="_blank" href="#">机甲核心</a></p>
+                    <p class="des">帅哥卧底抢夺关键能源</p>
+                </div>
+            </li>
+
+        </ul>
+
+    </div>
+</div>
+<!-- 代码 开始 -->
+<div class="go-top dn" id="go-top">
+
+    <a href="zhuce.html" target="_blank" class="feedback"></a>
+    <a href="javascript:;" class="go"></a>
+</div>
+</body>
+</html>

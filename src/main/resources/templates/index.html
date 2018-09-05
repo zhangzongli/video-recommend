@@ -1,10 +1,460 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8"></meta>
-    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
+    <meta name="author" content="order by dede58.com/"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+    <meta name="referrer" content="no-referrer"></meta>
+    <link href="../css/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/common.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="../css/bootstrapValidator.min.css"></link>
+    <script src="../js/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="../js/jquery.SuperSlide.2.1.1.js" type="text/javascript"></script>
+    <script src="../js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../js/layui/layui.js" type="text/javascript"></script>
+    <script src="../js/common.js" type="text/javascript"></script>
+    <script src="../js/index.js" type="text/javascript"></script>
+    <title>首页</title>
 </head>
-<body>
-视频推荐
+
+<body class="background_color">
+
+<div class="Slideshow_style" id="Slideshow">
+    <div class="header_top">
+        <div class="header clearfix">
+            <!--<a href="#" class="logo_style"><img src="images/logo.png" /></a>-->
+            <div class="login" style="display: block">
+                <button type="button" class=" btn-success " onclick="toLogin()">sign in</button>
+            </div>
+            <div class="login_out" style="display: none; float: right">
+                <span id="loginUser">zhangsan</span>
+                <button type="button" class=" btn-success " onclick="loginOut()">sign out</button>
+            </div>
+            <div class="search_stye">
+                <input name="" type="text" class="search"/>
+                <button name="" type="button" class=" btn-success button_submit" onclick="search()"><i
+                        class="icon_search"></i>搜索
+                </button>
+            </div>
+
+        </div>
+    </div>
+    <div class="wrapper" id="wrapper_slideBox">
+        <div class="hd Switch_operation">
+            <ul class="clearfix">
+                <li><a href="#"><img src="../images/x-banner1.jpg"/><span></span></a></li>
+            </ul>
+        </div>
+        <div class="bd">
+            <ul>
+                <li style="background:url(../images/banner1.jpg) no-repeat center; text-align:center; height:600px;"><a
+                        href="#" class=""></a></li>
+                <li style="background:url(..//images/banaer.png) no-repeat center; text-align:center; height:600px;"><a
+                        href="#" class=""></a></li>
+            </ul>
+        </div>
+    </div>
+    <script>jQuery("#wrapper_slideBox").slide({mainCell: ".bd ul", autoPlay: true, delayTime: 1000});</script>
+</div>
+<div class="home_style  Channel">
+    <div class="Hot_selection_style Channels">
+        <!--猜你喜欢-->
+        <div class="Channels margintb">
+            <div class="title_name clearfix">
+                <i class="icon_title"><img src="../images/icon_title_TV.png"/></i>猜你喜欢的电影 <span class="link_name"><a href="#">电视剧</a>| <a
+                    href="#">动漫</a>| <a href="#">综艺</a></span></div>
+            <div class="clearfix mb40">
+                <div class="var_list_fort" id="like">
+                    <ul class="video_list list_v_content">
+                        <li class="first_content bg">
+                            <a href="#" class="pic" target="_blank">
+                                <img src="http://r1.ykimg.com/050C00005B63F008ADBDD305E507AEB3" width="100%"/>
+                                <span class="first_bg"><i class="icon_bf"></i></span>
+                            </a>
+                            <div class="tc">
+                                <p class="tit">
+                                    <a target="_blank" href="#">机甲核心</a></p>
+                                <p class="des">帅哥卧底抢夺关键能源</p>
+                            </div>
+                        </li>
+                        <li class="first_content bg">
+                            <a href="#" class="pic" target="_blank">
+                                <img src="../video/4.jpg" width="100%"/>
+                                <span class="first_bg"><i class="icon_bf"></i></span>
+                            </a>
+                            <div class="tc">
+                                <p class="tit">
+                                    <a target="_blank" href="#">轿车公路上行驶被闪电劈中</a></p>
+                                <p class="des">巨响过后冒出浓烟</p>
+                            </div>
+                        </li>
+                        <li class="first_content bg">
+                            <a href="#" class="pic" target="_blank">
+                                <img src="../video/4.jpg" width="100%"/>
+                                <span class="first_bg"><i class="icon_bf"></i></span>
+                            </a>
+                            <div class="tc">
+                                <p class="tit">
+                                    <a target="_blank" href="#">轿车公路上行驶被闪电劈中</a></p>
+                                <p class="des">巨响过后冒出浓烟</p>
+                            </div>
+                        </li>
+                        <li class="first_content bg">
+                            <a href="#" class="pic" target="_blank">
+                                <img src="../video/4.jpg" width="100%"/>
+                                <span class="first_bg"><i class="icon_bf"></i></span>
+                            </a>
+                            <div class="tc">
+                                <p class="tit">
+                                    <a target="_blank" href="#">轿车公路上行驶被闪电劈中</a></p>
+                                <p class="des">巨响过后冒出浓烟</p>
+                            </div>
+                        </li>
+                        <li class="first_content bg">
+                            <a href="#" class="pic" target="_blank">
+                                <img src="../video/4.jpg" width="100%"/>
+                                <span class="first_bg"><i class="icon_bf"></i></span>
+                            </a>
+                            <div class="tc">
+                                <p class="tit">
+                                    <a target="_blank" href="#">轿车公路上行驶被闪电劈中</a></p>
+                                <p class="des">巨响过后冒出浓烟</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--相关电影-->
+        <div class="Channels margintb">
+            <div class="title_name clearfix">
+                <i class="icon_title"><img src="../images/icon_film.png"/></i>电影 <span class="link_name"></span></div>
+            <div class="clearfix mb40">
+                <div class="var_list_fort" id="movie">
+                    <ul class="video_list list_v_content">
+                        <li class="first_content bg">
+                            <a href="#" class="pic" target="_blank">
+                                <img src="../video/4.jpg" width="100%"/>
+                                <span class="first_bg"><i class="icon_bf"></i></span>
+                            </a>
+                            <div class="tc">
+                                <p class="tit">
+                                    <a target="_blank" href="#">轿车公路上行驶被闪电劈中</a></p>
+                                <p class="des">巨响过后冒出浓烟</p>
+                            </div>
+                        </li>
+                        <li class="first_content bg">
+                            <a href="#" class="pic" target="_blank">
+                                <img src="../video/4.jpg" width="100%"/>
+                                <span class="first_bg"><i class="icon_bf"></i></span>
+                            </a>
+                            <div class="tc">
+                                <p class="tit">
+                                    <a target="_blank" href="#">轿车公路上行驶被闪电劈中</a></p>
+                                <p class="des">巨响过后冒出浓烟</p>
+                            </div>
+                        </li>
+                        <li class="first_content bg">
+                            <a href="#" class="pic" target="_blank">
+                                <img src="../video/4.jpg" width="100%"/>
+                                <span class="first_bg"><i class="icon_bf"></i></span>
+                            </a>
+                            <div class="tc">
+                                <p class="tit">
+                                    <a target="_blank" href="#">轿车公路上行驶被闪电劈中</a></p>
+                                <p class="des">巨响过后冒出浓烟</p>
+                            </div>
+                        </li>
+                        <li class="first_content bg">
+                            <a href="#" class="pic" target="_blank">
+                                <img src="../video/4.jpg" width="100%"/>
+                                <span class="first_bg"><i class="icon_bf"></i></span>
+                            </a>
+                            <div class="tc">
+                                <p class="tit">
+                                    <a target="_blank" href="#">轿车公路上行驶被闪电劈中</a></p>
+                                <p class="des">巨响过后冒出浓烟</p>
+                            </div>
+                        </li>
+                        <li class="first_content bg">
+                            <a href="#" class="pic" target="_blank">
+                                <img src="../video/4.jpg" width="100%"/>
+                                <span class="first_bg"><i class="icon_bf"></i></span>
+                            </a>
+                            <div class="tc">
+                                <p class="tit">
+                                    <a target="_blank" href="#">轿车公路上行驶被闪电劈中</a></p>
+                                <p class="des">巨响过后冒出浓烟</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--相关电视剧-->
+        <div class="Channels margintb">
+            <div class="title_name clearfix">
+                <i class="icon_title"><img src="../images/icon_title_TV.png"/></i>电视剧 <span class="link_name"></span></div>
+            <div class="clearfix mb40">
+                <div class="var_list_fort" id="tv">
+                    <ul class="video_list list_v_content">
+                        <li class="first_content bg">
+                            <a href="#" class="pic" target="_blank">
+                                <img src="../video/4.jpg" width="100%"/>
+                                <span class="first_bg"><i class="icon_bf"></i></span>
+                            </a>
+                            <div class="tc">
+                                <p class="tit">
+                                    <a target="_blank" href="#">轿车公路上行驶被闪电劈中</a></p>
+                                <p class="des">巨响过后冒出浓烟</p>
+                            </div>
+                        </li>
+                        <li class="first_content bg">
+                            <a href="#" class="pic" target="_blank">
+                                <img src="../video/4.jpg" width="100%"/>
+                                <span class="first_bg"><i class="icon_bf"></i></span>
+                            </a>
+                            <div class="tc">
+                                <p class="tit">
+                                    <a target="_blank" href="#">轿车公路上行驶被闪电劈中</a></p>
+                                <p class="des">巨响过后冒出浓烟</p>
+                            </div>
+                        </li>
+                        <li class="first_content bg">
+                            <a href="#" class="pic" target="_blank">
+                                <img src="../video/4.jpg" width="100%"/>
+                                <span class="first_bg"><i class="icon_bf"></i></span>
+                            </a>
+                            <div class="tc">
+                                <p class="tit">
+                                    <a target="_blank" href="#">轿车公路上行驶被闪电劈中</a></p>
+                                <p class="des">巨响过后冒出浓烟</p>
+                            </div>
+                        </li>
+                        <li class="first_content bg">
+                            <a href="#" class="pic" target="_blank">
+                                <img src="../video/4.jpg" width="100%"/>
+                                <span class="first_bg"><i class="icon_bf"></i></span>
+                            </a>
+                            <div class="tc">
+                                <p class="tit">
+                                    <a target="_blank" href="#">轿车公路上行驶被闪电劈中</a></p>
+                                <p class="des">巨响过后冒出浓烟</p>
+                            </div>
+                        </li>
+                        <li class="first_content bg">
+                            <a href="#" class="pic" target="_blank">
+                                <img src="../video/4.jpg" width="100%"/>
+                                <span class="first_bg"><i class="icon_bf"></i></span>
+                            </a>
+                            <div class="tc">
+                                <p class="tit">
+                                    <a target="_blank" href="#">轿车公路上行驶被闪电劈中</a></p>
+                                <p class="des">巨响过后冒出浓烟</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--相关动漫-->
+        <div class="Channels margintb">
+            <div class="title_name clearfix">
+                <i class="icon_title"><img src="../images/icon_title_TV.png"/></i>动漫 <span class="link_name"></span></div>
+            <div class="clearfix mb40">
+                <div class="var_list_fort" id="anime">
+                    <ul class="video_list list_v_content">
+                        <li class="first_content bg">
+                            <a href="#" class="pic" target="_blank">
+                                <img src="../video/4.jpg" width="100%"/>
+                                <span class="first_bg"><i class="icon_bf"></i></span>
+                            </a>
+                            <div class="tc">
+                                <p class="tit">
+                                    <a target="_blank" href="#">轿车公路上行驶被闪电劈中</a></p>
+                                <p class="des">巨响过后冒出浓烟</p>
+                            </div>
+                        </li>
+                        <li class="first_content bg">
+                            <a href="#" class="pic" target="_blank">
+                                <img src="../video/4.jpg" width="100%"/>
+                                <span class="first_bg"><i class="icon_bf"></i></span>
+                            </a>
+                            <div class="tc">
+                                <p class="tit">
+                                    <a target="_blank" href="#">轿车公路上行驶被闪电劈中</a></p>
+                                <p class="des">巨响过后冒出浓烟</p>
+                            </div>
+                        </li>
+                        <li class="first_content bg">
+                            <a href="#" class="pic" target="_blank">
+                                <img src="../video/4.jpg" width="100%"/>
+                                <span class="first_bg"><i class="icon_bf"></i></span>
+                            </a>
+                            <div class="tc">
+                                <p class="tit">
+                                    <a target="_blank" href="#">轿车公路上行驶被闪电劈中</a></p>
+                                <p class="des">巨响过后冒出浓烟</p>
+                            </div>
+                        </li>
+                        <li class="first_content bg">
+                            <a href="#" class="pic" target="_blank">
+                                <img src="../video/4.jpg" width="100%"/>
+                                <span class="first_bg"><i class="icon_bf"></i></span>
+                            </a>
+                            <div class="tc">
+                                <p class="tit">
+                                    <a target="_blank" href="#">轿车公路上行驶被闪电劈中</a></p>
+                                <p class="des">巨响过后冒出浓烟</p>
+                            </div>
+                        </li>
+                        <li class="first_content bg">
+                            <a href="#" class="pic" target="_blank">
+                                <img src="../video/4.jpg" width="100%"/>
+                                <span class="first_bg"><i class="icon_bf"></i></span>
+                            </a>
+                            <div class="tc">
+                                <p class="tit">
+                                    <a target="_blank" href="#">轿车公路上行驶被闪电劈中</a></p>
+                                <p class="des">巨响过后冒出浓烟</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--相关综艺-->
+        <div class="Channels margintb">
+            <div class="title_name clearfix">
+                <i class="icon_title"><img src="../images/icon_title_TV.png"/></i>综艺 <span class="link_name"></span></div>
+            <div class="clearfix mb40">
+                <div class="var_list_fort" id="variety">
+                    <ul class="video_list list_v_content">
+                        <li class="first_content bg">
+                            <a href="#" class="pic" target="_blank">
+                                <img src="../video/4.jpg" width="100%"/>
+                                <span class="first_bg"><i class="icon_bf"></i></span>
+                            </a>
+                            <div class="tc">
+                                <p class="tit">
+                                    <a target="_blank" href="#">轿车公路上行驶被闪电劈中</a></p>
+                                <p class="des">巨响过后冒出浓烟</p>
+                            </div>
+                        </li>
+                        <li class="first_content bg">
+                            <a href="#" class="pic" target="_blank">
+                                <img src="../video/4.jpg" width="100%"/>
+                                <span class="first_bg"><i class="icon_bf"></i></span>
+                            </a>
+                            <div class="tc">
+                                <p class="tit">
+                                    <a target="_blank" href="#">轿车公路上行驶被闪电劈中</a></p>
+                                <p class="des">巨响过后冒出浓烟</p>
+                            </div>
+                        </li>
+                        <li class="first_content bg">
+                            <a href="#" class="pic" target="_blank">
+                                <img src="../video/4.jpg" width="100%"/>
+                                <span class="first_bg"><i class="icon_bf"></i></span>
+                            </a>
+                            <div class="tc">
+                                <p class="tit">
+                                    <a target="_blank" href="#">轿车公路上行驶被闪电劈中</a></p>
+                                <p class="des">巨响过后冒出浓烟</p>
+                            </div>
+                        </li>
+                        <li class="first_content bg">
+                            <a href="#" class="pic" target="_blank">
+                                <img src="../video/4.jpg" width="100%"/>
+                                <span class="first_bg"><i class="icon_bf"></i></span>
+                            </a>
+                            <div class="tc">
+                                <p class="tit">
+                                    <a target="_blank" href="#">轿车公路上行驶被闪电劈中</a></p>
+                                <p class="des">巨响过后冒出浓烟</p>
+                            </div>
+                        </li>
+                        <li class="first_content bg">
+                            <a href="#" class="pic" target="_blank">
+                                <img src="../video/4.jpg" width="100%"/>
+                                <span class="first_bg"><i class="icon_bf"></i></span>
+                            </a>
+                            <div class="tc">
+                                <p class="tit">
+                                    <a target="_blank" href="#">轿车公路上行驶被闪电劈中</a></p>
+                                <p class="des">巨响过后冒出浓烟</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--配置项目model-->
+<form method="post" action="" class="form-horizontal" role="form" id="login_form" style="margin: 20px;">
+    <div class="modal  w-100 h-100 bg-info" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">登录</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="layui-form" action="">
+                        <div class="form-group">
+                            <label for="user_name" class="col-sm-3 control-label">用户名</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="user_name" name="user_name" value=""></input>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="col-sm-3 control-label">密码</label>
+                            <div class="col-sm-9">
+                                <input type="password" class="form-control" id="password" name="password" value=""></input>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="login()">登录</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<!-- 代码 开始 -->
+<div class="go-top dn" id="go-top">
+
+    <a href="zhuce.html" target="_blank" class="feedback"></a>
+    <a href="javascript:;" class="go"></a>
+</div>
 </body>
 </html>
+<script>
+    /*********搜索*********/
+    function submit_btn() {
+        $(".search_style input[type$='text']").each(function (n) {
+            if ($(this).val() == "") {
+
+                layer.open({
+                    title: [
+                        '我是标题',
+                        'background-color:#8DCE16; color:#fff;'
+                    ]
+                    , anim: 'up'
+                    , content: '展现的是全部结构'
+                    , btn: ['确认', '取消']
+                });
+                return false;
+            }
+            else {
+                location.href = "search_page.html";
+
+            }
+        })
+    }
+</script>

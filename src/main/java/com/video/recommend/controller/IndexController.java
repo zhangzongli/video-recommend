@@ -1,13 +1,23 @@
 package com.video.recommend.controller;
 
-import org.rosuda.REngine.REXP;
+import com.alibaba.fastjson.JSONObject;
+import com.video.recommend.model.IndexReturn;
+import com.video.recommend.service.VideoService;
+import lombok.extern.slf4j.Slf4j;
 import org.rosuda.REngine.Rserve.RConnection;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 
 /**
  * 描述:
@@ -15,128 +25,144 @@ import java.util.List;
  * @author zhangzl
  * @create 2018-08-20 下午9:43
  */
+@Slf4j
 @Controller
 public class IndexController {
 
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    private VideoService videoService;
+
+    /**
+     * index访问
+     * @return
+     */
     @GetMapping("/")
-    public String index()  {
+    public String index() {
         return "index";
     }
 
-    @GetMapping("/a")
+    /**
+     * 判断是否登录
+     * @return
+     */
     @ResponseBody
-    public void test() {
-        RConnection rConnection = null;
-        try {
-            rConnection = new RConnection("localhost", 6311);
-//            List<Double[]> dataList = new ArrayList<Double[]>() {
-//                {
-//                    add(new Double[]{1d, 101d, 5d});
-//                    add(new Double[]{1d, 102d, 3d});
-//                    add(new Double[]{1d, 103d, 2.5d});
-//                    add(new Double[]{2d, 101d, 2d});
-//                    add(new Double[]{2d, 102d, 2.5d});
-//                    add(new Double[]{2d, 103d, 5d});
-//                    add(new Double[]{2d, 104d, 2d});
-//                    add(new Double[]{3d, 101d, 2.5d});
-//                    add(new Double[]{3d, 104d, 4d});
-//                    add(new Double[]{3d, 105d, 4.5d});
-//                    add(new Double[]{3d, 107d, 5d});
-//                    add(new Double[]{4d, 101d, 5d});
-//                    add(new Double[]{4d, 103d, 3d});
-//                    add(new Double[]{4d, 104d, 4.5d});
-//                    add(new Double[]{4d, 106d, 4d});
-//                    add(new Double[]{5d, 101d, 4d});
-//                    add(new Double[]{5d, 102d, 3d});
-//                    add(new Double[]{5d, 103d, 2d});
-//                    add(new Double[]{5d, 104d, 4d});
-//                    add(new Double[]{5d, 105d, 3.5d});
-//                    add(new Double[]{5d, 106d, 4d});
-//                }
-//            };
-            double[] uidArr = {1d,
-                    1d,
-                    1d,
-                    2d,
-                    2d,
-                    2d,
-                    2d,
-                    3d,
-                    3d,
-                    3d,
-                    3d,
-                    4d,
-                    4d,
-                    4d,
-                    4d,
-                    5d,
-                    5d,
-                    5d,
-                    5d,
-                    5d,
-                    5d};
-            double[] itemArr = {101d,
-                    102d,
-                    103d,
-                    101d,
-                    102d,
-                    103d,
-                    104d,
-                    101d,
-                    104d,
-                    105d,
-                    107d,
-                    101d,
-                    103d,
-                    104d,
-                    106d,
-                    101d,
-                    102d,
-                    103d,
-                    104d,
-                    105d,
-                    106d};
-            double[] prefArr = {5d,
-                    3d,
-                    2.5d,
-                    2d,
-                    2.5d,
-                    5d,
-                    2d,
-                    2.5d,
-                    4d,
-                    4.5d,
-                    5d,
-                    5d,
-                    3d,
-                    4.5d,
-                    4d,
-                    4d,
-                    3d,
-                    2d,
-                    4d,
-                    4.5d,
-                    4d};
-            rConnection.eval("source('~/Downloads/R/xietiaoguolv.R')");
-
-            rConnection.eval("setwd(\"/Users/zhangzl/Downloads/R\")");
-            rConnection.assign("uid",uidArr);
-            rConnection.assign("iid",itemArr);
-            rConnection.assign("pref",prefArr);
-            rConnection.eval("data <- data.frame(uid, iid, pref)");
-            rConnection.eval("NeighborHodd_num <- 2");
-            rConnection.eval("Recommender_num <- 3");
-            rConnection.eval("myM <- FileDataModel(data)");
-            rConnection.eval("myS <- EuclideanDistanceSimilarity(myM)");
-            rConnection.eval("myN <- NearestNUserNeigborhood(myS,NeighborHodd_num)");
-            rConnection.eval("R1 <- UserBasedRecommender(1, Recommender_num,myM,myS,myN)");
-
-            System.out.println(rConnection.eval("R1"));
-
-        }catch (Exception e) {
-            e.printStackTrace();
-        }finally {
-            rConnection.close();
+    @GetMapping("/is_login")
+    public String isLogin(HttpSession session) {
+        String result = "";
+        Object sessionUserName = session.getAttribute("userName");
+        if (null != sessionUserName) {
+            result = (String) sessionUserName;
         }
+        return result;
     }
+
+    /**
+     * 登录接口
+     * @param loginJson
+     * @param session
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/login")
+    public String login(@RequestBody JSONObject loginJson, HttpSession session) {
+        String result = "success";
+        String userName = loginJson.getString("userName");
+        String passWord = loginJson.getString("passWord");
+        String sql = "select id from `user` where user_name = '"+userName+"' and `password` = '"+passWord+"' limit 1";
+        List<Map<String, Object>> loginInfos = jdbcTemplate.queryForList(sql);
+        if (null != loginInfos && loginInfos.size() != 0) {
+            String userId = String.valueOf(loginInfos.get(0).get("id"));
+            Object sessionUserId = session.getAttribute("userId");
+            if (null == sessionUserId) {
+                log.info("session中 userId不存在");
+                session.setAttribute("userId", userId);
+                session.setAttribute("userName", userName);
+            }else {
+                if (userId.equals(sessionUserId)) {
+                    log.info("session中 userId=" + sessionUserId);
+                }else {
+                    session.setAttribute("userId", userId);
+                    session.setAttribute("userName", userName);
+                }
+            }
+        }else {
+            result = "failed";
+        }
+        return result;
+    }
+
+    /**
+     * 登出
+     * @param session
+     */
+    @ResponseBody
+    @GetMapping("login_out")
+    public void loginOut(HttpSession session) {
+        session.setAttribute("userId", null);
+        session.setAttribute("userName", null);
+    }
+
+    /**
+     * 播放页面
+     * @return
+     */
+    @GetMapping("/play_page")
+    public String playPage() {
+        return "playback_page";
+    }
+
+    /**
+     * 列表界面
+     * @return
+     */
+    @GetMapping("/list_page")
+    public String listPage() {
+        return "list_page";
+    }
+
+
+    /**
+     * 初始化index界面
+     * @param session
+     * @return
+     */
+    @ResponseBody
+    @GetMapping("/initIndex")
+    public Map<String, List<IndexReturn>> initIndex(HttpSession session) {
+        Map<String, List<IndexReturn>> returnMap = new HashMap<String, List<IndexReturn>>();
+        Object userId = session.getAttribute("userId");
+        if (null == userId) {
+            returnMap.put("like", videoService.getNewVideo("all"));
+            returnMap.put("movie", videoService.getNewVideo("1"));
+            returnMap.put("tv", videoService.getNewVideo("2"));
+            returnMap.put("anime", videoService.getNewVideo("3"));
+            returnMap.put("variety", videoService.getNewVideo("4"));
+        }else {
+            //猜你喜欢  基于用户
+            String sqlForLike = "select user_id, video_id, score from score";
+            String videoIdsForLike = videoService.userCF((String) userId, sqlForLike);
+            returnMap.put("like", videoService.getIndexReturnForSql(videoIdsForLike));
+            //电影 基于物品
+            String sqlForMovie = "select s.user_id, s.video_id, s.score from score s left join video v on v.id = s.video_id and v.video_module = 1" ;
+            String videoIdsForMovie = videoService.itemCF((String) userId, sqlForMovie);
+            returnMap.put("movie", videoService.getIndexReturnForSql(videoIdsForMovie));
+            //电视剧 基于物品
+            String sqlForTV = "select s.user_id, s.video_id, s.score from score s left join video v on v.id = s.video_id and v.video_module = 1" ;
+            String videoIdsForTV = videoService.itemCF((String) userId, sqlForTV);
+            returnMap.put("tv", videoService.getIndexReturnForSql(videoIdsForTV));
+            //动漫 基于物品
+            String sqlForAnime = "select s.user_id, s.video_id, s.score from score s left join video v on v.id = s.video_id and v.video_module = 1" ;
+            String videoIdsForAnime = videoService.itemCF((String) userId, sqlForAnime);
+            returnMap.put("movie", videoService.getIndexReturnForSql(videoIdsForAnime));
+            //综艺 基于物品
+            String sqlForVarirty = "select s.user_id, s.video_id, s.score from score s left join video v on v.id = s.video_id and v.video_module = 1" ;
+            String videoIdsForVariety = videoService.itemCF((String) userId, sqlForVarirty);
+            returnMap.put("movie", videoService.getIndexReturnForSql(videoIdsForVariety));
+        }
+        return returnMap;
+    }
+
 }
