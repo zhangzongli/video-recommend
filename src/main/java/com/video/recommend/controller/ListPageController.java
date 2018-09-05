@@ -23,6 +23,8 @@ import java.util.Map;
 @RestController
 public class ListPageController {
 
+    private String recommenderNum = "30";
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -37,8 +39,11 @@ public class ListPageController {
     @GetMapping("/list_page/search")
     public List<IndexReturn> listPageSearch(String comment) {
         List<IndexReturn> returnList = new ArrayList<IndexReturn>();
-        String sql = "select id, video_name, video_pic, video_url, video_summary from video where video_name like \"%"+comment+"%\"";
-        List<Map<String, Object>> videos = jdbcTemplate.queryForList(sql);
+        StringBuffer stringBuffer = new StringBuffer("select id, video_name, video_pic, video_url, video_summary from video where video_name like ");
+        stringBuffer.append("'%");
+        stringBuffer.append(comment);
+        stringBuffer.append("%'");
+        List<Map<String, Object>> videos = jdbcTemplate.queryForList(stringBuffer.toString());
         if (null != videos && videos.size() > 0) {
             for (Map<String, Object> map : videos) {
                 IndexReturn indexReturn = new IndexReturn();
@@ -64,25 +69,38 @@ public class ListPageController {
     @GetMapping("/list_page/filter")
     public  List<IndexReturn> getVideo(HttpSession session, String module, String area, String type, String time) {
         List<IndexReturn> returnList = new ArrayList<IndexReturn>();
-        StringBuffer sb = new StringBuffer("select id, video_name, video_pic, video_url, video_summary from video where 1=1 ");
-        if (!"all".equals(module)) {
-            sb.append(" and video_module = " + module);
-        }
-        if (!"all".equals(area)) {
-            sb.append(" and video_area = " + area);
-        }
-        if (!"all".equals(type)) {
-            sb.append(" and video_type = " + type);
-        }
-        if (!"all".equals(time)) {
-            sb.append(" and show_time = " + time);
-        }
-        sb.append(" ORDER BY create_time desc limit 30");
         Object userId = session.getAttribute("userId");
         if (null != userId) {
-            String videoIds = videoService.userCF((String) userId, sb.toString());
+            StringBuffer stringBuffer = new StringBuffer("select s.user_id, s.video_id, s.score from score s inner join video v on v.id = s.video_id where 1=1");
+            if (!"all".equals(module)) {
+                stringBuffer.append(" and v.video_module = " + module);
+            }
+            if (!"all".equals(area)) {
+                stringBuffer.append(" and v.video_area = " + area);
+            }
+            if (!"all".equals(type)) {
+                stringBuffer.append(" and v.video_type = " + type);
+            }
+            if (!"all".equals(time)) {
+                stringBuffer.append(" and v.show_time = " + time);
+            }
+            String videoIds = videoService.userCF((String) userId, stringBuffer.toString(), recommenderNum);
             returnList = videoService.getIndexReturnForSql(videoIds);
         }else {
+            StringBuffer sb = new StringBuffer("select id, video_name, video_pic, video_url, video_summary from video where 1=1 ");
+            if (!"all".equals(module)) {
+                sb.append(" and video_module = " + module);
+            }
+            if (!"all".equals(area)) {
+                sb.append(" and video_area = " + area);
+            }
+            if (!"all".equals(type)) {
+                sb.append(" and video_type = " + type);
+            }
+            if (!"all".equals(time)) {
+                sb.append(" and show_time = " + time);
+            }
+            sb.append(" ORDER BY create_time desc limit 30");
             List<Map<String, Object>> videos = jdbcTemplate.queryForList(sb.toString());
             if (null != videos && videos.size() > 0) {
                 for (Map<String, Object> map : videos) {

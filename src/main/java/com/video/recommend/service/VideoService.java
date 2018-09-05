@@ -33,8 +33,8 @@ public class VideoService {
     @Value("${R.neighbor_num}")
     private String neighborNum;
 
-    @Value("${R.recommender_num}")
-    private String recommenderNum;
+//    @Value("${R.recommender_num}")
+//    private String recommenderNum;
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -97,9 +97,10 @@ public class VideoService {
      * 基于用户推荐算法调用
      * @param userId
      * @param sql
+     * @param recommenderNum
      * @return
      */
-    public String userCF(String userId, String sql) {
+    public String userCF(String userId, String sql, String recommenderNum) {
         String result = "";
         List<Map<String, Object>> dataList = jdbcTemplate.queryForList(sql);
         double[] uidArr = new double[dataList.size()];
@@ -142,9 +143,10 @@ public class VideoService {
      * 基于物品推荐算法调用
      * @param userId
      * @param sql
+     * @param recommenderNum
      * @return video id ","分割
      */
-    public String itemCF(String userId, String sql) {
+    public String itemCF(String userId, String sql, String recommenderNum) {
         String result = "";
         List<Map<String, Object>> dataList = jdbcTemplate.queryForList(sql);
         double[] uidArr = new double[dataList.size()];

@@ -8,32 +8,6 @@ $(function () {
     initIndex();
     isLogin();
 
-    // $("form").bootstrapValidator({
-    //     feedbackIcons: {
-    //         valid: 'glyphicon glyphicon-ok',
-    //         invalid: 'glyphicon glyphicon-remove',
-    //         validating: 'glyphicon glyphicon-refresh'
-    //     },
-    //     fields: {
-    //         user_name: {
-    //             message: '用户名验证失败',
-    //             validators: {
-    //                 notEmpty: {
-    //                     message: '用户名不能为空'
-    //                 }
-    //             }
-    //         },
-    //         password: {
-    //             message: '密码验证失败',
-    //             validators: {
-    //                 notEmpty: {
-    //                     message: '密码不能为空'
-    //                 }
-    //             }
-    //         }
-    //     }
-    // });
-
 });
 
 /**
@@ -81,7 +55,7 @@ function login() {
                 $(".login_out").css("display", "block");
                 initIndex();
             }else if("failed" == data) {
-                layer.msg('新增项目失败');
+                layer.msg('登录失败');
             }
         }
     })
@@ -96,6 +70,9 @@ function loginOut() {
         type: "get",
         success: function (data) {
             initIndex();
+            $("#loginUser").html("");
+            $(".login").css("display", "block");
+            $(".login_out").css("display", "none");
         }
     });
 }
@@ -177,4 +154,17 @@ function search() {
     var content = $(".search").val();
     // location.href = "/list_page";
     window.open("/list_page?content=" + content);
+}
+
+function getLike(module) {
+    $.ajax({
+        url: "/like?module=" + module,
+        type: "get",
+        async: false,
+        success: function (data) {
+            //猜你喜欢
+            var likeHtml = spliceHtml(data);
+            $("#like").html(likeHtml);
+        }
+    })
 }
