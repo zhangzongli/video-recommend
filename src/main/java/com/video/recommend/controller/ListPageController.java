@@ -5,6 +5,7 @@ import com.video.recommend.service.VideoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -39,10 +40,15 @@ public class ListPageController {
     @GetMapping("/list_page/search")
     public List<IndexReturn> listPageSearch(String comment) {
         List<IndexReturn> returnList = new ArrayList<IndexReturn>();
-        StringBuffer stringBuffer = new StringBuffer("select id, video_name, video_pic, video_url, video_summary from video where video_name like ");
-        stringBuffer.append("'%");
-        stringBuffer.append(comment);
-        stringBuffer.append("%'");
+        StringBuffer stringBuffer = new StringBuffer();
+        if (StringUtils.isEmpty(comment)) {
+            stringBuffer.append("select id, video_name, video_pic, video_url, video_summary from video");
+        }else {
+            stringBuffer.append("select id, video_name, video_pic, video_url, video_summary from video where video_name like ");
+            stringBuffer.append("'%");
+            stringBuffer.append(comment);
+            stringBuffer.append("%'");
+        }
         List<Map<String, Object>> videos = jdbcTemplate.queryForList(stringBuffer.toString());
         if (null != videos && videos.size() > 0) {
             for (Map<String, Object> map : videos) {
@@ -75,13 +81,13 @@ public class ListPageController {
             if (!"all".equals(module)) {
                 stringBuffer.append(" and v.video_module = " + module);
             }
-            if (!"all".equals(area)) {
+            if (!"all".equals(area) && !StringUtils.isEmpty(area)) {
                 stringBuffer.append(" and v.video_area = " + area);
             }
-            if (!"all".equals(type)) {
-                stringBuffer.append(" and v.video_type = " + type);
+            if (!"all".equals(type) && !StringUtils.isEmpty(type)) {
+                stringBuffer.append(" and v.video_type = '"+type+"'");
             }
-            if (!"all".equals(time)) {
+            if (!"all".equals(time) && !StringUtils.isEmpty(time)) {
                 stringBuffer.append(" and v.show_time = " + time);
             }
             String videoIds = videoService.userCF((String) userId, stringBuffer.toString(), recommenderNum);
@@ -91,13 +97,13 @@ public class ListPageController {
             if (!"all".equals(module)) {
                 sb.append(" and video_module = " + module);
             }
-            if (!"all".equals(area)) {
+            if (!"all".equals(area) && !StringUtils.isEmpty(area)) {
                 sb.append(" and video_area = " + area);
             }
-            if (!"all".equals(type)) {
-                sb.append(" and video_type = " + type);
+            if (!"all".equals(type) && !StringUtils.isEmpty(type)) {
+                sb.append(" and video_type = '"+type+"'");
             }
-            if (!"all".equals(time)) {
+            if (!"all".equals(time) && !StringUtils.isEmpty(time)) {
                 sb.append(" and show_time = " + time);
             }
             sb.append(" ORDER BY create_time desc limit 30");

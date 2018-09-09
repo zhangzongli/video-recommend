@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -76,17 +77,19 @@ public class VideoService {
      */
     public List<IndexReturn> getIndexReturnForSql(String videoIds) {
         List<IndexReturn> returnList = new ArrayList<IndexReturn>();
-        String sql = "select id, video_name, video_pic, video_summary, video_url from video where id in ("+videoIds+")";
-        List<Map<String, Object>> videos = jdbcTemplate.queryForList(sql);
-        if (null != videos && videos.size() > 0) {
-            for (Map<String, Object> map : videos) {
-                IndexReturn indexReturn = new IndexReturn();
-                indexReturn.setVideoId((Integer) map.get("id"));
-                indexReturn.setVideoName((String) map.get("video_name"));
-                indexReturn.setVideoPic((String) map.get("video_pic"));
-                indexReturn.setVideoSummary((String) map.get("video_summary"));
-                indexReturn.setVideoUrl((String) map.get("video_url"));
-                returnList.add(indexReturn);
+        if (!StringUtils.isEmpty(videoIds)) {
+            String sql = "select id, video_name, video_pic, video_summary, video_url from video where id in ("+videoIds+")";
+            List<Map<String, Object>> videos = jdbcTemplate.queryForList(sql);
+            if (null != videos && videos.size() > 0) {
+                for (Map<String, Object> map : videos) {
+                    IndexReturn indexReturn = new IndexReturn();
+                    indexReturn.setVideoId((Integer) map.get("id"));
+                    indexReturn.setVideoName((String) map.get("video_name"));
+                    indexReturn.setVideoPic((String) map.get("video_pic"));
+                    indexReturn.setVideoSummary((String) map.get("video_summary"));
+                    indexReturn.setVideoUrl((String) map.get("video_url"));
+                    returnList.add(indexReturn);
+                }
             }
         }
         return returnList;
